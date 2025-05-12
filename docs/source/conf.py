@@ -6,8 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'plenoptic tutorial, CSHL Vision Course, 2024'
-copyright = '2024, Billy Broderick'
+project = 'plenoptic satellite event, VSS, 2025'
+copyright = '2025, Billy Broderick'
 author = 'Billy Broderick'
 
 # -- General configuration ---------------------------------------------------
@@ -40,8 +40,8 @@ html_sourcelink_suffix = ""
 myst_enable_extensions = ["colon_fence"]
 html_theme_options = {
     "home_page_in_toc": True,
-    "github_url": "https://github.com/plenoptic-org/plenoptic-cshl-vision-2024",
-    "repository_url": "https://github.com/plenoptic-org/plenoptic-cshl-vision-2024",
+    "github_url": "https://github.com/plenoptic-org/plenoptic-vss-2025",
+    "repository_url": "https://github.com/plenoptic-org/plenoptic-vss-2025",
     "logo": {
         "alt_text": "Home",
         "image_light": "_static/plenoptic.svg",
@@ -58,7 +58,7 @@ html_theme_options = {
         },
         {
             "name": "Binder",
-            "url": "https://binder.flatironinstitute.org/v2/user/wbroderick/cshl2024?filepath=introduction-stripped.ipynb",
+            "url": "https://binder.flatironinstitute.org/v2/user/wbroderick/vss2025?filepath=introduction-stripped.ipynb",
             "type": "url",
             "icon": "https://mybinder.org/badge_logo.svg",
         },

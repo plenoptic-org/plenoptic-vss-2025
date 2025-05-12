@@ -1,8 +1,8 @@
-# Welcome to plenoptic tutorial, CSHL Vision Course 2024
+# Welcome to plenoptic satellite event, VSS 2025
 
-This site hosts the example notebook used for the plenoptic tutorial given at the Cold Spring Harbor Labs Computational Neuroscience: Vision course in July 2024. This one-hour(ish) tutorial aims to introduce the basics of using plenoptic in order to better understand computational visual models with simple examples. We hope to explain not just `plenoptic`'s syntax but also the type of reasoning that it facilitates.
+This site hosts the example notebook used for the plenoptic satellite event at VSS 2025. This three hour session aims to introduce the basics of using plenoptic in order to better understand computational visual models with simple examples. We hope to explain not just `plenoptic`'s syntax but also the type of reasoning that it facilitates.
 
-The presentation I gave at the beginning of this session can be found [here](https://labforcomputationalvision.github.io/plenoptic_presentations/2024-07-12_CSHL/slides.html).
+The presentation I gave at the beginning of this session can be found [here](https://presentations.plenoptic.org/2025-05-16_vss-symposium/slides.html).
 
 This website contains two versions of the notebook we'll use today: [with](introduction.md) and [without](introduction-stripped.md) explanatory text. Today you'll run the version without explanatory text, which contains cells of code, while listening to my description. If later you wish to revisit this material, the version with explanatory text should help you.
 
@@ -21,19 +21,19 @@ While we'll use the binder during this tutorial, if you'd like to run the notebo
 0. Make sure you have `git` installed. It is installed by default on most Mac and Linux machines, but you may need to install it if you are on Windows. [These instructions](https://github.com/git-guides/install-git) should help.
 1. Clone the github repo for this tutorial:
    ```shell
-   git clone https://github.com/plenoptic-org/plenoptic-cshl-vision-2024.git
+   git clone https://github.com/plenoptic-org/plenoptic-vss-2025.git
    ```
 2. Create a new python 3.11 virtual environment. If you do not have a preferred way of managing your python virtual environments, we recommend [miniconda](https://docs.anaconda.com/free/miniconda/). After installing it (if you have not done so already), run 
     ```shell
-    conda create --name cshl2024 pip python=3.11
+    conda create --name vss2025 pip python=3.11
     ```
 3. Activate your new environment:
     ```shell
-    conda activate cshl2024
+    conda activate vss2025
     ```
 4. Navigate to the cloned github repo and install the required dependencies.
     ```shell
-    cd plenoptic-cshl-vision-2024
+    cd plenoptic-vss-2025
     pip install -r requirements.txt
     ```
 
