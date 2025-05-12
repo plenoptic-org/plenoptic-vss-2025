@@ -4,11 +4,11 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.16.2
+    jupytext_version: 1.17.1
 kernelspec:
-  display_name: python3
+  display_name: plenoptic_venv
   language: python
-  name: python3
+  name: plenoptic_venv
 ---
 
 :::{admonition} Download
@@ -51,7 +51,7 @@ For the purposes of this notebook, we'll use some very simple convolutional mode
 
 Let's get started! First, we'll import packages and set some configuration options:
 
-```{code-cell} 
+```{code-cell} ipython3
 import plenoptic as po
 import torch
 import pyrtools as pt
@@ -95,7 +95,7 @@ Set up the Guassian model. Models in plenoptic must:
 - Have all gradients removed.
 </div>
 
-```{code-cell} python
+```{code-cell} ipython3
 # this is a convenience function for creating a simple Gaussian kernel
 from plenoptic.simulate.canonical_computations.filters import circular_gaussian2d
 
@@ -157,7 +157,6 @@ Okay, now we're ready to start with metamer synthesis. To initialize, we only ne
 - Initialize the `Metamer` object and synthesize a model metamer.
 - View the synthesis process.
 </div>
-
 
 ```{code-cell} ipython3
 metamer = po.synthesize.Metamer(img, model)
@@ -234,8 +233,10 @@ po.imshow([curie, pink]);
 We run synthesis in the same way as before, just setting the optional argument `initial_image`:
 
 ```{code-cell} ipython3
-metamer_curie = po.synthesize.Metamer(img, model, initial_image=curie)
-metamer_pink = po.synthesize.Metamer(img, model, initial_image=pink)
+metamer_curie = po.synthesize.Metamer(img, model)
+metamer_curie.setup(initial_image=curie)
+metamer_pink = po.synthesize.Metamer(img, model) 
+metamer_pink.setup(initial_image=pink)
 
 # we increase the length of time we run synthesis and decrease the
 # stop_criterion, which determines when we think loss has converged
@@ -285,7 +286,6 @@ Like `Metamer`, `Eigendistortion` accepts an image and a model as its inputs. By
 - Eigendistortions are distortions that the model thinks are the most and least noticeable.
 - They can be visualized on their own or on top of the reference image.
 </div>
- 
 
 ```{code-cell} ipython3
 eig = po.synthesize.Eigendistortion(img, model)
@@ -343,7 +343,8 @@ white_noise =  po.tools.rescale(torch.rand_like(img), a=0, b=1).to(DEVICE)
 init_img = torch.cat([white_noise, pink, curie], dim=0)
 # metamer does a 1-to-1 matching between initial and target images,
 # so we need to repeat the target image on the batch dimension
-cs_metamer = po.synthesize.Metamer(img.repeat(3, 1, 1, 1), center_surround, initial_image=init_img)
+cs_metamer = po.synthesize.Metamer(img.repeat(3, 1, 1, 1), center_surround)
+cs_metamer.setup(initial_image=init_img)
 cs_metamer.synthesize(1000, stop_criterion=1e-7)
 ```
 
@@ -351,6 +352,7 @@ Now let's visualize our outputs (the code to create this plot is slightly annoyi
 
 ```{code-cell} ipython3
 :tags: [hide-input]
+
 # this requires a little reorganization of the tensors:
 to_plot = [torch.cat([torch.ones_like(img), img, center_surround(img)])]
 for i, j in zip(init_img, cs_metamer.metamer):
@@ -444,9 +446,9 @@ po.imshow([lg(img), lg(2*img)], vrange='auto1');
 Now let's go ahead and synthesize and visualize metamers for this model. This will look the same as before, except we're going to explicitly initialize the optimizer object. This allows us to set the learning rate to a value slightly lower than the default, which allows us to find a better solution here.
 
 ```{code-cell} ipython3
-lg_metamer = po.synthesize.Metamer(img.repeat(3, 1, 1, 1), lg, initial_image=init_img)
-opt = torch.optim.Adam([lg_metamer.metamer], .007, amsgrad=True)
-lg_metamer.synthesize(3500, stop_criterion=1e-11, optimizer=opt)
+lg_metamer = po.synthesize.Metamer(img.repeat(3, 1, 1, 1), lg)
+lg_metamer.setup(initial_image=init_img, optimizer_kwargs={"lr": .007})
+lg_metamer.synthesize(3500, stop_criterion=1e-11)
 ```
 
 And let's visualize our results:
@@ -457,6 +459,7 @@ And let's visualize our results:
 
 ```{code-cell} ipython3
 :tags: [hide-input]
+
 # this requires a little reorganization of the tensors:
 to_plot = [torch.cat([torch.ones_like(img), img, center_surround(img)])]
 for i, j in zip(init_img, lg_metamer.metamer):
