@@ -1,0 +1,14 @@
+sphinx
+myst-nb
+Pillow
+plenoptic
+sphinx-book-theme
+myst-parser
+sphinx-copybutton
+sphinx-togglebutton
+ipywidgets
+requests
+click
+jupytext
+jupyterlab_myst
+jupyter
