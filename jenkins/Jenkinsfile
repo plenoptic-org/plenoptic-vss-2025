@@ -29,7 +29,8 @@ pipeline {
               git fetch --tags
               source $HOME/bin/activate
               pip install -U pip
-              pip install .[docs]
+              pip install -r requirements.txt
+              python scripts/setup.py
               
               make -C docs html O="-T"
               
