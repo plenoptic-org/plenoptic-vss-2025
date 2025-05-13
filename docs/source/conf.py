@@ -39,7 +39,6 @@ if os.environ.get("JENKINS"):
     nb_kernel_rgx_aliases = {".*": "python3"}
 else:
     nb_kernel_rgx_aliases = {}
-print(nb_kernel_rgx_aliases)
 html_theme = 'sphinx_book_theme'
 html_static_path = ['_static']
 html_css_files = ['custom.css']
