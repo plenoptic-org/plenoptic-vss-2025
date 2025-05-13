@@ -17,8 +17,8 @@ RUN adduser --disabled-password \
 COPY . ${HOME}
 RUN pip3 install jupyterlab notebook jupyterhub
 RUN pip3 install -r ${HOME}/plenoptic-vss-2025/requirements.txt
-# RUN python3 ${HOME}/plenoptic-vss-2025/scripts/setup.py
-RUN conda update ffmpeg
+RUN python3 ${HOME}/plenoptic-vss-2025/scripts/setup.py
+RUN conda install ffmpeg -c conda-forge
 USER root
 RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
