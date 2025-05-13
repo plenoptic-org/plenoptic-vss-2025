@@ -32,7 +32,7 @@ pipeline {
               pip install -r requirements.txt
               python scripts/setup.py
               
-              make -C docs html O="-T"
+              JENKINS=true make -C docs html O="-T"
               
               # we move this to a separate directory to reduce the risk of the checkout
               # below clobbering it

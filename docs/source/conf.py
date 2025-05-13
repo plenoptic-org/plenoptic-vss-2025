@@ -6,6 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import os
+
 project = 'plenoptic satellite event, VSS, 2025'
 copyright = '2025, Billy Broderick'
 author = 'Billy Broderick'
@@ -32,6 +34,12 @@ nb_execution_timeout = -1
 # (which ends in `-stripped.md`). we don't need to run both of them
 nb_execution_excludepatterns = ['*stripped*']
 nb_execution_raise_on_error = True
+# on Jenkins, always want to use kernel called "python3" (otherwise, it's system specific)
+if os.environ.get("JENKINS"):
+    nb_kernel_rgx_aliases = {".*": "python3"}
+else:
+    nb_kernel_rgx_aliases = {}
+print(nb_kernel_rgx_aliases)
 html_theme = 'sphinx_book_theme'
 html_static_path = ['_static']
 html_css_files = ['custom.css']
