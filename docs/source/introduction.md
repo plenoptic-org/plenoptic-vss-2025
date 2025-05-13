@@ -20,7 +20,7 @@ This notebook can be downloaded as **{nb-download}`introduction.ipynb`**. See th
 
 # Introduction
 
-The goal of this notebook is to give a brief introduction to plenoptic: we'll use two of our synthesis methods with a handful of models, and try to step through the kind of scientific reasoning that plenoptic's synthesis methods facilitate. If you're interested in learning more about this, ask me questions or [check out our documentation](https://plenoptic.readthedocs.io)!
+The goal of this notebook is to give a brief introduction to plenoptic: we'll use two of our synthesis methods with a handful of models, and try to step through the kind of scientific reasoning that plenoptic's synthesis methods facilitate. If you're interested in learning more about this, ask me questions or [check out our documentation](https://docs.plenoptic.org)!
 
 :::{admonition} Questions
 :class: important
@@ -40,7 +40,7 @@ For the purposes of this notebook, we'll use some very simple convolutional mode
 
 [^models]: Most of these models were originally published in Berardino, A., Laparra, V., J Ball\'e, & Simoncelli, E. P. (2017). Eigen-distortions of hierarchical representations. In Adv. Neural Information Processing Systems (NIPS*17), from which the figure is modified.
 
-[^notallmodels]: Note that the Berardino et. al, 2017 paper includes more models than described here. We're not examining all of them for time's sake, but you can check out the rest of the models described in the Berardino paper, they're all included in plenoptic under the [plenoptic.simulate.FrontEnd](https://plenoptic.readthedocs.io/en/latest/api/plenoptic.simulate.models.html#module-plenoptic.simulate.models.frontend) module!
+[^notallmodels]: Note that the Berardino et. al, 2017 paper includes more models than described here. We're not examining all of them for time's sake, but you can check out the rest of the models described in the Berardino paper, they're all included in plenoptic under the [plenoptic.simulate.FrontEnd](https://docs.plenoptic.org/docs/branch/main/api/plenoptic.simulate.models.html#module-plenoptic.simulate.models.frontend) module!
 
 - `Gaussian`: the model just convolves a Gaussian with an image, so that the model's representation is simply a blurry version of the image.
 - `CenterSurround`: the model convolves a difference-of-Gaussian filter with the image, so that model's representation is bandpass, caring mainly about frequencies that are neither too high or too low.
@@ -83,7 +83,7 @@ fig = po.imshow(img)
 
 Models can be really simple, as this demonstrates. It needs to inherit `torch.nn.Module`[^module] and just needs two methods: `__init__` (so it's an object) and `forward` (so it can take an image). 
 
-[^module]: Technically, this isn't necessary, but it will make your life easier. See [our documentation](https://plenoptic.readthedocs.io/en/latest/models.html) for details.
+[^module]: Technically, this isn't necessary, but it will make your life easier. See [our documentation](https://docs.plenoptic.org/docs/branch/main/models.html) for details.
 
 To start, we'll create the `Gaussian` model described above:
 
@@ -558,6 +558,6 @@ We can thus see that the addition of gain control qualitatively changes the sens
 
 In this notebook, we saw the basics of using `plenoptic` to investigate the sensitivities and invariances of some simple convolutional models, and reasoned through how the model metamers and eigendistortions we saw enable us to understand how these models process images.
 
-`plenoptic` includes a variety of models and model components in the [plenoptic.simulate](https://plenoptic.readthedocs.io/en/latest/api/plenoptic.simulate.html) module, and you can (and should!) use the synthesis methods with your own models. Our documentation also has [examples](https://plenoptic.readthedocs.io/en/latest/tutorials/applications/Demo_Eigendistortion.html) showing how to use models from [torchvision](https://pytorch.org/vision/stable/index.html) (which contains a variety of pretrained neural network models) with plenoptic. In order to use your own models with plenoptic, check the [documentation](https://plenoptic.readthedocs.io/en/latest/models.html) for the specific requirements, and use the [`validate_model`](https://plenoptic.readthedocs.io/en/latest/api/plenoptic.tools.html#plenoptic.tools.validate.validate_model) function to check compatibility. If you have issues or want feedback, we're happy to help --- just post on the [Github discussions page](https://github.com/plenoptic-org/plenoptic/discussions)!
+`plenoptic` includes a variety of models and model components in the [plenoptic.simulate](https://docs.plenoptic.org/docs/branch/main/api/plenoptic.simulate.html) module, and you can (and should!) use the synthesis methods with your own models. Our documentation also has [examples](https://docs.plenoptic.org/docs/branch/main/tutorials/applications/Demo_Eigendistortion.html) showing how to use models from [torchvision](https://pytorch.org/vision/stable/index.html) (which contains a variety of pretrained neural network models) with plenoptic (we'll be releasing a simpler interface for torchvision and other pytorch model zoos this summer -- ask me if you're interested!). In order to use your own models with plenoptic, check the [documentation](https://docs.plenoptic.org/docs/branch/main/models.html) for the specific requirements, and use the [`validate_model`](https://docs.plenoptic.org/docs/branch/main/api/plenoptic.tools.html#plenoptic.tools.validate.validate_model) function to check compatibility. If you have issues or want feedback, we're happy to help --- just post on the [Github discussions page](https://github.com/plenoptic-org/plenoptic/discussions)!
 
 </div>
