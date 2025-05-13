@@ -6,7 +6,7 @@ pipeline {
     timeout(time: 2, unit: 'HOURS')
   }
   stages {
-    stage('docs') {
+    stage('workshop') {
       agent {
         dockerfile {
           dir 'jenkins'
