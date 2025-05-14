@@ -4,7 +4,7 @@ This site hosts the example notebook used for the plenoptic satellite event at V
 
 The presentation I gave at the beginning of this session can be found [here](https://presentations.plenoptic.org/2025-05-16_vss-symposium/slides.html).
 
-This website contains two versions of the notebook we'll use today: [with](introduction.md) and [without](introduction-stripped.md) explanatory text. Today you'll run the version without explanatory text, which contains cells of code, while listening to my description. If later you wish to revisit this material, the version with explanatory text should help you.
+This website contains two versions of the notebook we'll use today: [with](full/introduction.md) and [without](users/introduction-stripped.md) explanatory text. Today you'll run the version without explanatory text, which contains cells of code, while listening to my description. If later you wish to revisit this material, the version with explanatory text should help you.
 
 You may also find the [glossary](glossary.md) useful as you go through the notebook.
 
@@ -260,7 +260,27 @@ See description above for an explanation of the difference between these two
 notebooks.
 
 ```{toctree}
+can_you_read.md
 glossary.md
-introduction.md
-introduction-stripped.md
+```
+
+```{toctree}
+:glob:
+:caption: Full notebooks
+:titlesonly:
+full/*
+```
+
+```{toctree}
+:glob:
+:caption: For users (some code, some text)
+:titlesonly:
+users/*
+```
+
+```{toctree}
+:glob:
+:caption: For presenter reference (all code, no text)
+:titlesonly:
+presenters/*
 ```

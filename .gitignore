@@ -165,3 +165,8 @@ jupyter_execute/
 # created by our scripts
 *stripped.md
 *ipynb
+
+# don't add files here, generate them
+docs/source/users
+docs/source/presenters
+notebooks/

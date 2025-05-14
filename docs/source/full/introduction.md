@@ -33,8 +33,8 @@ As described in my presentation, the goal of plenoptic is to provide methods for
 
 In order to use plenoptic, we need some models! Normally, this will depend on your research problem: you'll use models that you've developed or fit in previous experiments, or that get used in the literature. For example, if you're studying V1, you could use an energy model of complex cells; if you're studying object recognition, you might use a deep network-based model.
 
-<div class='render-both'>
-<img src="_static/models.png">
+<div class='render-all'>
+<img src="../_static/models.png">
 
 For the purposes of this notebook, we'll use some very simple convolutional models that are inspired by the processing done in the lateral geniculate nucleus (LGN) of the visual system[^models]. We're going to build up in complexity, starting with the Gaussian model at the top and gradually adding features[^notallmodels]. We'll describe the components of these models in more detail as we get to them, but briefly:
 
@@ -87,7 +87,7 @@ Models can be really simple, as this demonstrates. It needs to inherit `torch.nn
 
 To start, we'll create the `Gaussian` model described above:
 
-<div class='render-strip'>
+<div class='render-user'>
 Set up the Guassian model. Models in plenoptic must:
 - Inherit `torch.nn.Module`.
 - Accept tensors as input and return tensors as output.
@@ -136,7 +136,7 @@ model.eval()
 
 The following shows the image and the model output. We can see that output is a blurred version of the input, as we would expect from a low-pass model.
 
-<div class='render-strip'>
+<div class='render-user'>
 - The Gaussian model output is a blurred version of the input.
 - This is because the model is preserving the low frequencies,  discarding the high frequencies (i.e., it's a lowpass filter).
 - Thus, this model is completely insensitive to high frequencies -- information there is invisible to the model.
@@ -153,7 +153,7 @@ Before moving forward, let's think about this model for a moment. It's a simple 
 
 Okay, now we're ready to start with metamer synthesis. To initialize, we only need the model and the image. Optimization-related arguments are set when calling `.synthesize()` and, in general, you'll probably need to play with these options to find a good solution. It's also probably a good idea, while getting started, to set `store_progress` to `True` (to store every iteration) or some `int` (to store every `int` iterations) so you can examine synthesis progress.
 
-<div class='render-strip'>
+<div class='render-user'>
 - Initialize the `Metamer` object and synthesize a model metamer.
 - View the synthesis process.
 </div>
@@ -176,7 +176,7 @@ The loss decreases steadily and has reached a very low value. In fact, based on 
 
 We can also view a movie of our synthesis progress:
 
-<div class='render-strip'>
+<div class='render-user'>
 
 :::{important} 
 This next cell will take a while to run --- making animations in matplotlib is a bit of a slow process.
@@ -217,7 +217,7 @@ It may seem strange that the synthesized image looks like it has high-frequency 
 
 We can see the model's insensitivity to high frequencies more dramatically by initializing our metamer synthesis with a different image. By default, we initialize with a patch of white noise, but we can initialize with any image of the same size. Let's try with two different images, a sample of pink noise and a picture of Marie Curie.
 
-<div class='render-strip'>
+<div class='render-user'>
 - Synthesize more model metamers, from different starting points.
 </div>
 
@@ -252,7 +252,7 @@ po.synthesize.metamer.plot_loss(metamer_curie)
 po.synthesize.metamer.plot_loss(metamer_pink);
 ```
 
-<div class='render-strip'>
+<div class='render-user'>
 In the following plot:
 - the first row shows our target Einstein image and its model representation, as we saw before.
 - the new three rows show our model metamers resulting from three different starting points.
@@ -281,7 +281,7 @@ By generating model metamers, we've gained a better understanding of the informa
 
 Like `Metamer`, `Eigendistortion` accepts an image and a model as its inputs. By default, it synthesizes the top and bottom eigendistortion, that is, the changes to the input image that the model finds most and least noticeable.
 
-<div class='render-strip'>
+<div class='render-user'>
 - While metamers allow us to examine model invariances, eigendistortions allow us to also examine model sensitivities.
 - Eigendistortions are distortions that the model thinks are the most and least noticeable.
 - They can be visualized on their own or on top of the reference image.
@@ -310,7 +310,7 @@ po.imshow(img + 3*eig.eigendistortions, title=['Maximum eigendistortion',
 
 Now we feel pretty confident that we understand how a simple Gaussian works, what happens when we make the model more complicated? Let's try changing the filter from a simple lowpass to a bandpass filter, which have sensitivities more similar to those of neurons in the early human visual system. To do this, we'll use plenoptic's built-in `CenterSurround` object:
 
-<div class='render-strip'>
+<div class='render-user'>
 - The `CenterSurround` model has bandpass sensitivity, as opposed to the `Gaussian`'s lowpass.
 - Thus, it is still insensitive to the highest frequencies, but it is less sensitive to the low frequencies the Gaussian prefers, with its peak sensitivity lying in a middling range.
 </div>
@@ -334,7 +334,7 @@ While the Gaussian model above was lowpass, throwing away high frequencies and p
 
 We can make use of multi-batch processing in order to synthesize the metamers with different start points, as above, using a single `Metamer` object:
 
-<div class='render-strip'>
+<div class='render-user'>
 - We can synthesize all three model metamers at once by taking advantage of multi-batch processing.
 </div>
 
@@ -394,7 +394,7 @@ In all of these, the differences are the result of the fact that our model now c
 
 The change from a lowpass to a bandpass model also changes the model's most sensitive frequencies, though we can't easily tell that using model metamers. We can, however, using eigendistortions!
 
-<div class='render-strip'>
+<div class='render-user'>
 - By examining the eigendistortions, we can see more clearly that the model's preferred frequency has shifted higher, while the minimal eigendistortion still looks fairly similar.
 </div>
 
@@ -421,7 +421,7 @@ So far, our models have all been linear. That means that they're easy to underst
     ```
 [^gaincontrol]: Gain control, or divisive normalization, is ubiquitous in the central nervous system and has been proposed as a [canonical neural computation](https://www.nature.com/articles/nrn3136) which allows the brain to maximize sensitivity to relevant stimuli in changing contexts.
 
-<div class='render-strip'>
+<div class='render-user'>
 - The `LuminanceGainControl` model adds a nonlinearity, gain control. This makes the model harder to reason than the first two models.
 - This model divides the output of the `CenterSurround` filter with an estimate of local luminance (the output of a larger Gaussian filter), which makes the model completely insensitive to absolute pixel values. It now cares about contrast, rather than luminance.
 - This is a computation that we think is present throughout much of the early visual system.
@@ -453,7 +453,7 @@ lg_metamer.synthesize(3500, stop_criterion=1e-11)
 
 And let's visualize our results:
 
-<div class='render-strip'>
+<div class='render-user'>
 - The model metamers here look fairly similar to those of the `CenterSurround` model, though you can see these are more "gray", because this model is even less sensitive to the local luminance than the previous model.
 </div>
 
@@ -508,7 +508,7 @@ Again, the minimum eigendistortion looks fairly similar to before, but now our m
 
 This adaptivity matters not just within images, but across images: the `CenterSurround` and `Gaussian` models' eigendistortions look the same on different images, whereas `LuminanceGainControl`'s eigendistortions vary depending on the image content:
 
-<div class='render-strip'>
+<div class='render-user'>
 - Gain control makes this model adaptive, and thus the location of the eigendistortion matters, which was not true of our previous, linear models.
 </div>
 
@@ -553,7 +553,7 @@ We can thus see that the addition of gain control qualitatively changes the sens
 
 ## Conclusion
 
-<div class='render-both'>
+<div class='render-all'>
 
 In this notebook, we saw the basics of using `plenoptic` to investigate the sensitivities and invariances of some simple convolutional models, and reasoned through how the model metamers and eigendistortions we saw enable us to understand how these models process images.
 

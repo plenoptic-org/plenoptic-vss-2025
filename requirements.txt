@@ -6,9 +6,12 @@ sphinx-book-theme
 myst-parser
 sphinx-copybutton
 sphinx-togglebutton
+sphinx-design
 ipywidgets
 requests
+rich
 click
 jupytext
 jupyterlab_myst
 jupyter
+jupyterlab<4.3
