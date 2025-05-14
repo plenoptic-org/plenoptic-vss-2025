@@ -66,7 +66,7 @@ Some usage notes:
 - If you lose connection halfway through the workshop, go to the [binderhub page](https://binder.flatironinstitute.org/hub/hub/home) to join your running instance rather than restarting the image.
 - This is important because if you restart the image, **you will lose all data and progress**.
 - The binder will be shutdown automatically after 1 day of inactivity or 7 days of total usage. Data will not persist after the binder instance shuts down, so **please download any notebooks** you want to keep.
-- I will destroy this instance in 2 weeks, so that you can use it to play around during the course. You can download your notebooks to keep them after the fact. If you do so, see the [setup instructions](#setup) for how to create the environment for running them locally, and let me know if you have any problems!
+- I will destroy this instance after VSS, so you can use it to play around during the conference. You can download your notebooks to keep them after the fact. If you do so, see the [setup instructions](#setup) for how to create the environment for running them locally, and let me know if you have any problems!
 
 ## Contents
 
