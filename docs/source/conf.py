@@ -36,7 +36,7 @@ exclude_patterns = []
 nb_execution_timeout = -1
 # we have two versions of each notebook, one with explanatory text and one without
 # (which ends in `-stripped.md`). we don't need to run both of them
-nb_execution_excludepatterns = ['*intro*', "*-users*", "*-presenters*"]
+nb_execution_excludepatterns = ["*-users*", "*-presenters*"]
 nb_execution_mode = "cache"
 nb_execution_raise_on_error = True
 # on Jenkins, always want to use kernel called "python3" (otherwise, it's system specific)
