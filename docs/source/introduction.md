@@ -90,9 +90,9 @@ To start, we'll create the `Gaussian` model described above:
 <div class='render-strip'>
 Set up the Guassian model. Models in plenoptic must:
 - Inherit `torch.nn.Module`.
-- Accept 4d tensors as input and return 3d or 4d tensors as output.
+- Accept tensors as input and return tensors as output.
 - Have `forward` and `__init__` methods.
-- Have all gradients removed.
+- Have all model parameter gradients removed.
 </div>
 
 ```{code-cell} ipython3
@@ -118,7 +118,7 @@ model = Gaussian((31, 31)).to(DEVICE)
 rep = model(img)
 ```
 
-To work with our synthesis methods, a model must accept a 4d tensor as input and return a 3d or 4d tensor as output. 4d inputs are commonly used for pytorch models, and the dimensions are batch (often, multiple images), channel (often, RGB or outputs of different convolutional filters), height, and width. The model should then either return a 1d vector or a 2d image *per batch and channel*, for a total of 3 (`batch, channel, vector`) or 4 (`batch, channel, height, width`) dimensions. If your model operates across channels or batches, that's no problem; for example if the model transforms RGB to grayscale, your input would have 3 channels and your output would have 1.
+To work with our synthesis methods, a model must accept a tensor as input and return a tensor as output. Generally speaking, plenoptic works with 4d inputs: these are commonly used to represent images when working with pytorch models, and the dimensions are batch (often, multiple images), channel (often, RGB or outputs of different convolutional filters), height, and width. This is not required for a model to work with plenoptic's synthesis methods, but several of the helper functions (especially those related to display) will not work if this is not the case.
 
 We can see that our `Gaussian` model satisfies this constraint:
 
@@ -127,7 +127,7 @@ print(img.shape)
 print(rep.shape)
 ```
 
-There's one final step before this model is ready for synthesis. Most `pytorch` models will have learnable parameters, such as the weight on the convolution filter we created above, because the focus is generally on training the model to best perform some task. In `plenoptic`, models are *fixed* because we take the opposite approach: generating some new stimulus to better a understand a given model. Thus, all synthesis methods will raise a `ValueError` if given a model with any learnable parameters. We provide a helper function to remove these gradients. Similarly, we probably also want to call `.eval()` on the model, in case it has training-mode specific behavior: that's not the case here (I'm just being pedantic), but it might be the case, depending on your model, and [pytorch's documentation](https://pytorch.org/docs/stable/notes/autograd.html#evaluation-mode-nn-module-eval) recommends calling `.eval()` just in case.
+There's one final step before this model is ready for synthesis. Most `pytorch` models will have learnable parameters, such as the weight on the convolution filter we created above, because the focus is generally on training the model to best perform some task. In `plenoptic`, models are *fixed* because we take the opposite approach: generating some new stimulus to better a understand a given model. Thus, all synthesis methods will raise a `ValueError` if given a model with any learnable parameters. We provide a helper function to remove the gradients on these parameters. Similarly, we probably also want to call `.eval()` on the model, in case it has training-mode specific behavior: that's not the case here (I'm just being pedantic), but it might be the case, depending on your model, and [pytorch's documentation](https://pytorch.org/docs/stable/notes/autograd.html#evaluation-mode-nn-module-eval) recommends calling `.eval()` just in case.
 
 ```{code-cell} ipython3
 po.tools.remove_grad(model)
@@ -554,7 +554,6 @@ We can thus see that the addition of gain control qualitatively changes the sens
 ## Conclusion
 
 <div class='render-both'>
-<img src="_static/plan.svg">
 
 In this notebook, we saw the basics of using `plenoptic` to investigate the sensitivities and invariances of some simple convolutional models, and reasoned through how the model metamers and eigendistortions we saw enable us to understand how these models process images.
 
