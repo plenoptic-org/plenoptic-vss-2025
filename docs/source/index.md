@@ -207,6 +207,41 @@ If you have `ffmpeg` installed and are still having issues, try running `conda u
 
 :::
 
+## Troubleshooting
+
+- If you are on Mac and get an error related to `ruamel.yaml` (or `clang`) when running `pip install -r requirements.txt`, we think this can be fixed by updating your Xcode Command Line Tools.
+- On Windows, you may receive an error saying "running scripts is disabled on this system" when trying to activate the virtual environment. If so, run `Set-ExecutionPolicy -Scope CurrentUser` and enter `Unrestricted`, then press `Y`. (You may have to do this every time you open powershell.)
+- If you have multiple jupyter installs on your path (because e.g., because you have an existing jupyter installation in a conda environment and you then used `uv` to setup the virtual environment for this workshop), jupyter can get confused. (You can check if this is the case by running `which -a jupyter` on Mac / Linux.)
+  To avoid this problem, either make sure you only have one virtual environment active (e.g., by running `conda deactivate`) or prepend `JUPYTER_DATA_DIR=$(realpath ..)/.venv/share/jupyter/` to your jupyter command above:
+
+  ```shell
+  JUPYTER_DATA_DIR=$(realpath ..)/.venv/share/jupyter/ jupyter lab
+  ```
+
+  (On Windows, replace `$(realpath ..)` with the path to the `ccn-software-jan-2025` directory.)
+- We have noticed jupyter notebooks behaving a bit odd in Safari --- if you are running/editing jupyter in Safari and the behavior seems off (scrolling not smooth, lag between creation and display of cells), try a different browser. We've had better luck with Firefox or using the arrow keys to navigate between cells.
+- On **Windows + conda**: if after installing conda the paths are not correctly set, you may encounter this error message: 
+   ```
+   conda : The term 'conda' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+   ```
+  In this case, you can try the following steps:
+  - Locate the path to the `condabin` folder. The path should look like: `some-folder-path\Miniforge3\condabin`. 
+  
+    The following powershell command could be useful (note that i am starting form C: as a root, but you can change that): 
+    ```
+    Get-ChildItem -Path C:\ -Directory -Recurse -Filter "condabin" -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName
+    ```
+  - Temporarily add conda to the paths: 
+    ```
+    $env:Path += ";some-folder-path\Miniforge3\condabin"
+    ```
+  - Initialize conda:
+    ```
+    conda init powershell 
+    ```
+  - Restart the powershell and check that conda is in the path. Run for example `conda --version`.
+- If you see `sys:1: DeprecationWarning: Call to deprecated function (or staticmethod) _destroy.` when running `python scripts/setup.py`, we don't think this is actually a problem. As long as `check_setup.py` says everything looks good, you're fine!
+
 ## Binder
 
 A binder instance (a virtual environment running on Flatiron's cluster) is provided in case we cannot get your installation working. To access it, click the "launch binder" button in the top left of this site or click [here](https://binder.flatironinstitute.org/v2/user/wbroderick/vss2025?labpath=notebooks).
