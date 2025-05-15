@@ -93,6 +93,6 @@ else:
     print(f"\n:worried: [red bold]{errors} Errors found.[/red bold]\n")
     print("Unfortunately, your setup was unsuccessful.")
     print("Try to resolve following the suggestions above.")
-    print("If you encountered many installation errors, run [bold] pip install -r requirements[/bold]")
+    print("If you encountered multiple installation errors, run [bold] pip install -r requirements[/bold]")
     print("If you are unable to fix your setup yourself, please come to the satellite event room at")
     print("12:30pm and show us the output of this command.")
