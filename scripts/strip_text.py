@@ -44,7 +44,7 @@ for md in glob("docs/source/full/*md"):
     # - all code cells
     # - all divs with a render class
     # - all admonitions (in colon fences)
-    regex_str = "---.*?---|^#.*?$|```{code-cell}.*?```|<div class=.render.*?/div>|:::.*?:::"
+    regex_str = "---$.*?---|^#.*?$|```{code-cell}.*?```|<div class=.render.*?/div>|:::.*?:::"
     preserved_text = re.findall(regex_str, contents, re.MULTILINE | re.DOTALL)
 
     # now we're producing two versions of the notebook: one for users and one for
