@@ -34,7 +34,7 @@ def main():
         output_f.parent.mkdir(exist_ok=True)
         subprocess.run(['jupytext', f.absolute(), '-o', output_f,
                         '--from', 'myst'], cwd=repo_dir)
-        nb_contents = re.sub(r'../../_static/', r'../../docs/source/_static/',
+        nb_contents = re.sub(r'../_static/', r'../docs/source/_static/',
                              output_f.read_text())
         output_f.write_text(nb_contents)
 
