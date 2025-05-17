@@ -80,9 +80,13 @@ po.tools.set_seed(1)
 def plot_helper(metamer, init_img=None):
     if init_img is None:
         init_img = metamer.saved_metamer[0]
-    to_plot = [torch.cat([torch.ones_like(metamer.image),
-                          metamer.image,
-                          metamer.model(metamer.image)])]
+    if metamer.image.shape[0] > 1:
+        img = metamer.image[:1]
+    else:
+        img = metamer.image
+    to_plot = [torch.cat([torch.ones_like(img),
+                          img,
+                          metamer.model(img)])]
     for i, j in zip(init_img, metamer.metamer):
         to_plot.append(torch.stack([i, j, metamer.model(j)]))
     to_plot = torch.cat(to_plot)
