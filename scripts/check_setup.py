@@ -42,6 +42,14 @@ else:
     else:
         print(":x: No GPU found. That's okay, everything will run, but it will be slower.")
 
+try:
+    po.animshow(torch.rand((1,1,10,16,16))).save("test.mp4")
+except:
+    errors += 1
+    print(":x: Unable to create and save video, is ffmpeg installed on your system?")
+else:
+    print(":white_check_mark: Able to create and save video!")
+
 p = subprocess.run(['jupyter', '--version'], capture_output=True)
 if p.returncode != 0:
     errors += 1
