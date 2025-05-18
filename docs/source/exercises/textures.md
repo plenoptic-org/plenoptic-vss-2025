@@ -46,6 +46,7 @@ po.synth.metamer.plot_synthesis_status(met);
 And let's view that synthesis over time:
 
 ```{code-cell} ipython3
+met.to('cpu')
 po.synth.metamer.animate(met)
 ```
 
