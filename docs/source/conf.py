@@ -70,7 +70,7 @@ html_theme_options = {
         },
         {
             "name": "Binder",
-            "url": "https://binder.flatironinstitute.org/v2/user/wbroderick/vss2025?filepath=introduction-stripped.ipynb",
+            "url": "https://binder.flatironinstitute.org/v2/user/wbroderick/vss2025?filepath=notebooks/introduction-users.ipynb",
             "type": "url",
             "icon": "https://mybinder.org/badge_logo.svg",
         },
