@@ -25,11 +25,12 @@ def main():
     nb_dir = repo_dir / 'notebooks'
     scripts_dir = repo_dir / 'scripts'
     docs_nb_dir = repo_dir / 'docs' / 'source' / 'users'
+    ex_nb_dir = repo_dir / 'docs' / 'source' / 'exercises'
     print("Preparing notebooks...")
     shutil.rmtree(docs_nb_dir, ignore_errors=True)
     shutil.rmtree(repo_dir / 'docs' / 'source' / 'presenters', ignore_errors=True)
     subprocess.run(['python', repo_dir / 'scripts' / 'strip_text.py'], cwd=repo_dir)
-    for f in docs_nb_dir.glob('*md'):
+    for f in list(docs_nb_dir.glob('*md')) + list(ex_nb_dir.glob("*md")):
         output_f = (nb_dir / f.name.replace('md', 'ipynb')).absolute()
         output_f.parent.mkdir(exist_ok=True)
         subprocess.run(['jupytext', f.absolute(), '-o', output_f,
