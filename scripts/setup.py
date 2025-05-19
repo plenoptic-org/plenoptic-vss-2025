@@ -36,6 +36,8 @@ def main():
                         '--from', 'myst'], cwd=repo_dir)
         nb_contents = re.sub(r'../_static/', r'../docs/source/_static/',
                              output_f.read_text())
+        nb_contents = re.sub(r'<img src=.?["\'](.*?).?["\']>', r'![](\1)',
+                             nb_contents)
         output_f.write_text(nb_contents)
 
 
