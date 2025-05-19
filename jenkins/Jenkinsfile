@@ -30,6 +30,7 @@ pipeline {
               source $HOME/bin/activate
               pip install -U pip
               pip install -r requirements.txt
+              pip install timm torchvision
               python ./scripts/strip_text.py
               
               JENKINS=true make -C docs html O="-T"

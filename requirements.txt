@@ -16,4 +16,3 @@ jupyterlab_myst
 jupyter
 jupyterlab<4.3
 pooch
-torchvision

@@ -17,6 +17,7 @@ RUN adduser --disabled-password \
 COPY . ${HOME}
 RUN pip3 install jupyterlab notebook jupyterhub
 RUN pip3 install -r ${HOME}/plenoptic-vss-2025/requirements.txt
+RUN pip3 install timm torchvision
 RUN python3 ${HOME}/plenoptic-vss-2025/scripts/setup.py
 RUN conda install ffmpeg -c conda-forge
 USER root
